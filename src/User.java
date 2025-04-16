@@ -5,7 +5,8 @@ public class User {
     String phone;
     String name;
 
-    public String userId(String myId){
-        return this.id = myId;
+    public void uesrInfo() {
+
     }
+
 }

@@ -90,10 +90,10 @@ public class Main {
 
             switch (seleteNumber) {
                 case 1:
-                    System.out.println("주소록 검색");
+                    search();
                     break;
                 case 2:
-                    search();
+                    searchAll();
                     break;
                 case 3:
                     System.out.println("내정보 변경");
@@ -110,10 +110,9 @@ public class Main {
         }
     }
 
-    // 주소록 전체 검색 정보 확인
-    public static void search() {
+    // 주소록 전체 정보 확인
+    public static void searchAll() {
         for (int i = 0; i < user.length; i++) {
-
             String userAddress = user[i][2];
             String userPhone = user[i][3];
             String userName = user[i][4];
@@ -124,5 +123,22 @@ public class Main {
 
             System.out.println();
         }
+    }
+
+    // 주소록 검색 정보 확인
+    public static void search() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("검색할 유저의 이름");
+        String searchUser = input.nextLine();
+        for (int i = 0; i < user.length; i++) {
+            if (user[i][0].equals(searchUser)) {
+                System.out.println("======================");
+                System.out.println(user[i][0] + "님의 정보");
+                System.out.print("주소 : " + user[i][2] + " | 전화번호 : " + user[i][3] + " | 이름 : " + user[i][4] + "\n");
+                System.out.println("======================");
+                break;
+            }
+        }
+
     }
 }
