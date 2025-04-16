@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -96,7 +97,7 @@ public class Main {
                     searchAll();
                     break;
                 case 3:
-                    System.out.println("내정보 변경");
+                    edit();
                     break;
                 case 4:
                     System.out.println("로그아웃");
@@ -140,5 +141,16 @@ public class Main {
             }
         }
 
+    }
+
+    public static void edit(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("비밀번호를 입력해주세요");
+        String pw = input.nextLine();
+        for (int i = 0; i < user.length; i++){
+            if(user[i][1].equals(pw)){
+                System.out.println(user[i][0] + " 님 수정할 정보를 입력해주세요");
+            }
+        }
     }
 }
