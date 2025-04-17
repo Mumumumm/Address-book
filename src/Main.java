@@ -4,30 +4,22 @@ import java.util.Scanner;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static String[][] user = new String[3][5];
+    static User[] user = new User[3];
+    /*
+    배열 객체를 담는 과정
+    static User[] user = {
+        new User("aa", "1234", "경기", "010-1234-5678", "A씨"),
+        new User("bb", "1235", "부산", "010-2345-6789", "B군"),
+        new User("cc", "1236", "강원", "010-9875-6432", "C양")
+    }
+    */
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-
-        // 유저 정보
-        user[0][0] = "aa";
-        user[0][1] = "1234";
-        user[0][2] = "경기";
-        user[0][3] = "010-1234-5678";
-        user[0][4] = "A씨";
-
-        user[1][0] = "bb";
-        user[1][1] = "1235";
-        user[1][2] = "부산";
-        user[1][3] = "010-2345-6789";
-        user[1][4] = "B군";
-
-        user[2][0] = "cc";
-        user[2][1] = "1236";
-        user[2][2] = "강원";
-        user[2][3] = "010-9875-6432";
-        user[2][4] = "C양";
-
+        // user 변수 각 정보에 담김
+        user[0] = new User("aa", "1234", "경기", "010-1234-5678", "A씨");
+        user[1] = new User("bb", "1235", "부산", "010-2345-6789", "B군");
+        user[2] = new User("cc", "1236", "강원", "010-9875-6432", "C양");
 
         while (true) {
             System.out.println("<< 주소록 관리 >>");
@@ -63,7 +55,7 @@ public class Main {
             int index = -1;
 
             for (int i = 0; i < user.length; i++) { // index 0~2 를 얻기위함
-                if (id.equals(user[i][0])) {
+                if (id.equals(user[i].getId())) {
                     index = i;
                 }
             }
@@ -71,7 +63,7 @@ public class Main {
             if (index != -1) { // index 0~2일때 실행
                 System.out.println("PW 입력 : ");
                 String pw = input.nextLine();
-                if (pw.equals(user[index][1])) {
+                if (pw.equals(user[index].getPw())) {
                     System.out.println("로그인 성공");
                     return true;
                 }
@@ -114,13 +106,11 @@ public class Main {
     // 주소록 전체 정보 확인
     public static void searchAll() {
         for (int i = 0; i < user.length; i++) {
-            String userAddress = user[i][2];
-            String userPhone = user[i][3];
-            String userName = user[i][4];
 
-            System.out.println(user[i][0] + "님의 주소 : " + userAddress);
-            System.out.println(user[i][0] + "님의 전화번호 : " + userPhone);
-            System.out.println(user[i][0] + "님의 이름 : " + userName);
+
+            System.out.println(user[i].getId() + "님의 주소 : " + user[i].getAddress());
+            System.out.println(user[i].getId() + "님의 전화번호 : " + user[i].getPhone());
+            System.out.println(user[i].getId() + "님의 이름 : " + user[i].getName());
 
             System.out.println();
         }
@@ -132,10 +122,12 @@ public class Main {
         System.out.println("검색할 유저의 이름");
         String searchUser = input.nextLine();
         for (int i = 0; i < user.length; i++) {
-            if (user[i][0].equals(searchUser)) {
+            if (user[i].getId().equals(searchUser)) {
                 System.out.println("======================");
-                System.out.println(user[i][0] + "님의 정보");
-                System.out.print("주소 : " + user[i][2] + " | 전화번호 : " + user[i][3] + " | 이름 : " + user[i][4] + "\n");
+                System.out.println(user[i].getId() + "님의 정보");
+                System.out.print("주소 : " + user[i].getAddress() +
+                        " | 전화번호 : " + user[i].getPhone() +
+                        " | 이름 : " + user[i].getName() + "\n");
                 System.out.println("======================");
                 break;
             }
@@ -143,14 +135,29 @@ public class Main {
 
     }
 
-    public static void edit(){
+    // 정보변경
+    public static void edit() {
         Scanner input = new Scanner(System.in);
         System.out.println("비밀번호를 입력해주세요");
         String pw = input.nextLine();
-        for (int i = 0; i < user.length; i++){
-            if(user[i][1].equals(pw)){
-                System.out.println(user[i][0] + " 님 수정할 정보를 입력해주세요");
+
+        for (int i = 0; i < user.length; i++) {
+            if (user[i].getPw().equals(pw)) {
+                // 내가 바꿀 입력 정보 문자열 자료형으로
+                System.out.println(user[i].getId() + " 주소 정보 변경");
+                String changeAddress = input.nextLine();
+                System.out.println(user[i].getId() + " 전화번호 정보 변경");
+                String changePhone = input.nextLine();
+                System.out.println(user[i].getId() + " 이름 정보 변경");
+                String changeName = input.nextLine();
+                // 그 정보를 set~ (여기에 넣어준다)
+                user[i].setAddress(changeAddress);
+                user[i].setPhone(changePhone);
+                user[i].setName(changeName);
+                System.out.println("정보 변경이 완료 되었습니다");
+
             }
         }
+
     }
 }
